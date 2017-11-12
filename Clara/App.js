@@ -2,6 +2,8 @@ import React from 'react';
 import { DrawerNavigator } from 'react-navigation';
 import StartScreen from './screens/StartScreen';
 import SelectDepartmentScreen from './screens/SelectDepartmentScreen';
+import FreeRoomsScreen from './screens/FreeRoomsScreen';
+import PrincipalHeaderComponent from './components/PrincipalHeader';
 
 const MyApp = DrawerNavigator(
   {
@@ -10,7 +12,13 @@ const MyApp = DrawerNavigator(
     },
     SelectDepartment: {
       screen: SelectDepartmentScreen,
-    }
+    },
+    FreeRooms: {
+      screen: FreeRoomsScreen,
+    },
+    PrincipalHeader: {
+      screen: PrincipalHeaderComponent,
+    },
   },
   {
       initialRouteName: 'Start',

@@ -6,6 +6,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 export default class StartScreen extends Component { 
   constructor(props) {
     super(props);
+    //AsyncStorage.clear();     //Uncomment this row, if you want reset the local storage
     this.onLoadStart();
   }
 
@@ -13,8 +14,7 @@ export default class StartScreen extends Component {
     try {
       const value = await AsyncStorage.getItem('department');
       if (value !== null){
-        this.props.navigation.navigate('SelectDepartment');
-        //to change!! Attenzione: navigate to Screen aule libere
+        this.props.navigation.navigate('FreeRooms');
       }
     } catch (error) {
       console.log(error);

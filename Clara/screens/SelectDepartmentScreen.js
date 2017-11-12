@@ -3,7 +3,6 @@ import { StyleSheet, Text, AsyncStorage } from 'react-native';
 import { Container, Content, Body, Button, Picker, Form, Item as FormItem } from 'native-base'; 
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
 
-//const 
 const Item = Picker.Item;
 
 export default class SelectDepartmentScreen extends Component { 
@@ -37,6 +36,7 @@ export default class SelectDepartmentScreen extends Component {
   async onPressFindRoom(){
     try {
       await AsyncStorage.setItem('department' , this.state.selectedDep);
+      this.props.navigation.navigate('FreeRooms');
     } catch (error) {
       console.log(error);
     }
