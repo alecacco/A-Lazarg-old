@@ -1,8 +1,9 @@
-import React, { Component  } from 'react'; 
-import { StyleSheet, Text } from 'react-native';
+import React, { Component } from 'react'; 
+import { StyleSheet, Text, AsyncStorage } from 'react-native';
 import { Container, Content, Body, Button, Picker, Form, Item as FormItem } from 'native-base'; 
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
 
+//const 
 const Item = Picker.Item;
 
 export default class SelectDepartmentScreen extends Component { 
@@ -11,6 +12,20 @@ export default class SelectDepartmentScreen extends Component {
     this.state = {
       selectedDep: undefined
     };
+    this.onLoadDepartment();
+  }
+
+  async onLoadDepartment(){
+    try {
+      const value = await AsyncStorage.getItem('department');
+      if (value !== null){
+        this.setState({
+          selectedDep: value
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   onValueChangeDep(value: string) {
@@ -19,8 +34,15 @@ export default class SelectDepartmentScreen extends Component {
     });
   }
 
-  render() { 
+  async onPressFindRoom(){
+    try {
+      await AsyncStorage.setItem('department' , this.state.selectedDep);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
+  render() { 
     return ( 
       <Container>        
         <Grid style={{height: '100%'}}>
@@ -47,7 +69,7 @@ export default class SelectDepartmentScreen extends Component {
             </Form>            
           </Row>
           <Row style={{height: '50%', width: '100%', justifyContent: 'center', alignItems: 'flex-start'}}>
-            <Button transparent>
+            <Button transparent onPress={() => this.onPressFindRoom()}>
               <Text style={styles.findRoom}>Find room</Text>
             </Button>
           </Row>

@@ -1,9 +1,26 @@
 import React, { Component  } from 'react'; 
-import { Image, StyleSheet, Text } from 'react-native';
+import { Image, StyleSheet, Text, AsyncStorage } from 'react-native';
 import { Container, Content, Body, Button, Icon } from 'native-base'; 
 import { Col, Row, Grid } from 'react-native-easy-grid'; 
 
 export default class StartScreen extends Component { 
+  constructor(props) {
+    super(props);
+    this.onLoadStart();
+  }
+
+  async onLoadStart(){
+    try {
+      const value = await AsyncStorage.getItem('department');
+      if (value !== null){
+        this.props.navigation.navigate('SelectDepartment');
+        //to change!! Attenzione: navigate to Screen aule libere
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   render() { 
 
     return ( 
